@@ -1,13 +1,7 @@
-<%@ page import="ua.com.manometer.model.invoice.Invoice" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="ua.com.manometer.model.invoice.Booking" %>
-<%@ page import="org.apache.commons.lang.StringUtils" %>
-<%@ page import="java.math.RoundingMode" %>
-<%@ page import="java.math.BigDecimal" %>
 <%@ page import="ua.com.manometer.model.Currency" %>
-<%@ page import="java.util.List" %>
 <%@ page import="ua.com.manometer.model.User" %>
+<%@ page import="ua.com.manometer.model.invoice.Invoice" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -154,8 +148,9 @@
             <li><a href="#tabs-5">Состояние</a></li>
             <li><a href="#tabs-6">Валюта</a></li>
             <li><a href="#tabs-7">Заказчик</a></li>
+            <li><a href="#tabs-8">Отрасль</a></li>
             <sec:authorize access="hasRole('ROLE_ECONOMIST')">
-                <li><a href="#tabs-8">Спец. ОСО</a></li>
+                <li><a href="#tabs-9">Спец. ОСО</a></li>
             </sec:authorize>
         </ul>
 
@@ -288,10 +283,58 @@
                     </tr>
 
 
-
-
                 </table>
             </div>
+
+            <div id="tabs-8" class="tabdiv">
+                <div id="branches">
+                    <table>
+
+                        <tr>
+                            <td><input name="branches" value="1" type="checkbox"></td>
+                            <td>&nbsp;про </td>
+                            <td>&nbsp; &nbsp; </td>
+                            <td><input name="branches" value="2" type="checkbox"></td>
+                            <td>&nbsp;аэс</td>
+                        </tr>
+
+                        <tr>
+                            <td><input name="branches" value="3" type="checkbox"></td>
+                            <td>&nbsp;энр</td>
+                            <td>&nbsp; &nbsp; </td>
+                            <td><input name="branches" value="4" type="checkbox"></td>
+                            <td>&nbsp;мет</td>
+                        </tr>
+
+                        <tr>
+                            <td><input name="branches" value="5" type="checkbox"></td>
+                            <td>&nbsp;доб</td>
+                            <td>&nbsp; &nbsp;</td>
+                            <td><input name="branches" value="6" type="checkbox"></td>
+                            <td>&nbsp;нгу</td>
+                        </tr>
+
+                        <tr>
+                            <td><input name="branches" value="7" type="checkbox"></td>
+                            <td>&nbsp;хим</td>
+                            <td>&nbsp; &nbsp; </td>
+                            <td><input name="branches" value="8" type="checkbox"></td>
+                            <td>&nbsp;маш</td>
+                        </tr>
+
+                        <tr>
+                            <td><input name="branches" value="9" type="checkbox"></td>
+                            <td>&nbsp;стр</td>
+                            <td>&nbsp; &nbsp; </td>
+                            <td><input name="branches" value="10" type="checkbox"></td>
+                            <td>&nbsp;ком</td>
+                        </tr>
+
+
+                    </table>
+                </div>
+            </div>
+
 
             <sec:authorize access="hasRole('ROLE_ECONOMIST')">
                 <div id="tabs-8" class="tabdiv">

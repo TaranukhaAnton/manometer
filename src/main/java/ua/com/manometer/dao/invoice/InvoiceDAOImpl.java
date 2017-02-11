@@ -3,8 +3,8 @@ package ua.com.manometer.dao.invoice;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
-import org.hibernate.SessionFactory;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
@@ -44,12 +44,16 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         Conjunction conjunction = Restrictions.conjunction();
 
 
+        criteria.createAlias("employer", "emp");
         if (StringUtils.isNotBlank(invoiceFilter.getEmployer())) {
-            criteria.createAlias("employer", "emp");
             conjunction.add(Restrictions.eq("emp.shortName", invoiceFilter.getEmployer()));
         }
         if (!invoiceFilter.getUsers().isEmpty()) {
             conjunction.add(Restrictions.in("executor.id", invoiceFilter.getUsers()));
+        }
+
+        if (!invoiceFilter.getBranches().isEmpty()) {
+            conjunction.add(Restrictions.in("emp.branch", invoiceFilter.getBranches()));
         }
 
 

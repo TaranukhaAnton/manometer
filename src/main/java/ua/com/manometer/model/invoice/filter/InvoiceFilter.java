@@ -1,70 +1,88 @@
 package ua.com.manometer.model.invoice.filter;
 
-
-//import org.codehaus.jackson.map.annotate.JsonSerialize;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
-import ua.com.manometer.util.CustomDateSerializer;
-//import ua.com.manometer.util.CustomDateSerializer;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 
 
 @Entity
-@Table(name="invoice_filter")
+@Table(name = "invoice_filter")
 @JsonAutoDetect
-public class InvoiceFilter  implements Serializable {
+public class InvoiceFilter implements Serializable {
     @Id
     @Column(name = "id")
     private Integer id;
 
-    Integer f0 = 0;
-    Integer f1 = 0;
-    Integer f2 = 0;
+    private Integer f0 = 0;
+    private Integer f1 = 0;
+    private Integer f2 = 0;
 
-    Integer f1From;
-    Integer f1To;
-
-    @Transient
-    String employer;
-
-    @DateTimeFormat(pattern="dd.MM.yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd.MM.yyyy", timezone="EET")
-//    @JsonSerialize(using = CustomDateSerializer.class)
-    Date f2From;
-
-    @DateTimeFormat(pattern="dd.MM.yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd.MM.yyyy", timezone="EET")
-
-//    @JsonSerialize(using = CustomDateSerializer.class)
-    Date f2To;
-
-    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
-    List<Integer> users = new LinkedList<Integer>();
-
-    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
-    List<Integer> purposeFilter = new LinkedList<Integer>();
-
-    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
-    List<Integer> stateFilter = new LinkedList<Integer>();
-
-    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
-    List<Integer> currencyFilter = new LinkedList<Integer>();
+    private Integer f1From;
+    private Integer f1To;
 
     @Transient
-    boolean  onlyByEmployer;
+    private String employer;
 
-    public InvoiceFilter(Integer id) {
-        this.id = id;
-    }
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "EET")
+//    @JsonSerialize(using = CustomDateSerializer.class)
+    private Date f2From;
 
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "EET")
+
+//    @JsonSerialize(using = CustomDateSerializer.class)
+    private Date f2To;
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> users = new LinkedList<Integer>();
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> purposeFilter = new LinkedList<Integer>();
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> stateFilter = new LinkedList<Integer>();
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> currencyFilter = new LinkedList<Integer>();
+
+    @Transient
+    private boolean onlyByEmployer;
+
+    @Type(type = "ua.com.manometer.util.IntegerListCustomType")
+    private List<Integer> branches = new LinkedList<Integer>();
+
+
+    //##############################################################
     public InvoiceFilter() {
     }
+
+    public InvoiceFilter(InvoiceFilter other) {
+        id = other.getId();
+        f0 = other.getF0();
+        f1 = other.getF1();
+        f2 = other.getF2();
+        f1From = other.getF1From();
+        f1To = other.getF1To();
+        employer = other.getEmployer();
+        f2From = other.getF2From();
+        f2To = other.getF2To();
+        users = other.getUsers();
+        purposeFilter = other.getPurposeFilter();
+        stateFilter = other.getStateFilter();
+        currencyFilter = other.getCurrencyFilter();
+        onlyByEmployer = other.isOnlyByEmployer();
+        branches = other.getBranches();
+    }
+
 
     public List<Integer> getCurrencyFilter() {
         return currencyFilter;
@@ -147,7 +165,7 @@ public class InvoiceFilter  implements Serializable {
     }
 
 
- //   @JsonSerialize(using = CustomDateSerializer.class)
+    //   @JsonSerialize(using = CustomDateSerializer.class)
     public Date getF2From() {
         return f2From;
     }
@@ -156,7 +174,7 @@ public class InvoiceFilter  implements Serializable {
         this.f2From = f2From;
     }
 
- //   @JsonSerialize(using = CustomDateSerializer.class)
+    //   @JsonSerialize(using = CustomDateSerializer.class)
     public Date getF2To() {
         return f2To;
     }
@@ -179,6 +197,14 @@ public class InvoiceFilter  implements Serializable {
 
     public void setOnlyByEmployer(boolean onlyByEmployer) {
         this.onlyByEmployer = onlyByEmployer;
+    }
+
+    public List<Integer> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(List<Integer> branches) {
+        this.branches = branches;
     }
 
     /*    public List<Invoice> doFilter() {
@@ -251,8 +277,6 @@ public class InvoiceFilter  implements Serializable {
                 result.add(invoice.getBooking());
         return result;
     }*/
-
-
 
 
 }

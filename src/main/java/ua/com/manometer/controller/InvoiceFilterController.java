@@ -25,7 +25,7 @@ public class InvoiceFilterController {
         if (securedUser != null) {
             InvoiceFilter invoiceFilter = securedUser.getInvoiceFilter();
             System.out.println("invoiceFilter = " + invoiceFilter);
-            return invoiceFilter;
+            return new InvoiceFilter(invoiceFilter);
         }
         return null;
     }
