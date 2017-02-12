@@ -231,7 +231,7 @@ function openFilterWindow() {
 }
 
 function printInvoiceList() {
-    location.replace("./printInvoiceList");
+    location.replace("./export_invoice_list");
 }
 
 

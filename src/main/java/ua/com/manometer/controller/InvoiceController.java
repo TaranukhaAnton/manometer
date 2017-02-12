@@ -791,7 +791,10 @@ public class InvoiceController {
     public String exportReport(ModelMap model) {
         SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         InvoiceFilter filter = securedUser.getInvoiceFilter();
-        model.put("listInvoices", invoiceService.listFilteredInvoice(filter));
+        List<Invoice> value = invoiceService.listFilteredInvoice(filter);
+        JRDataSource dataSource = new JRBeanCollectionDataSource(value);
+        model.addAttribute("dataSource", dataSource);
+        model.addAttribute("format", "pdf");
         return "invoiceListReport";
     }
 
