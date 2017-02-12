@@ -22,6 +22,7 @@
     </c:if>
 
     <a href="javascript:void(openFilterWindow())">Фильтр</a><br>
+    <a href="javascript:void(printInvoiceList())">Печать</a><br>
 
 
     <display:table name="listInvoices" requestURI="./" excludedParams="method"

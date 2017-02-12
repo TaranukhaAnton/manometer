@@ -1,7 +1,6 @@
 package ua.com.manometer.controller;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -19,12 +18,13 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.manometer.model.Customer;
 import ua.com.manometer.model.SecuredUser;
 import ua.com.manometer.model.Supplier;
-import ua.com.manometer.model.User;
 import ua.com.manometer.model.address.City;
 import ua.com.manometer.model.invoice.*;
-import ua.com.manometer.model.invoice.filter.BookingFilter;
 import ua.com.manometer.model.invoice.filter.InvoiceFilter;
-import ua.com.manometer.service.*;
+import ua.com.manometer.service.CurrencyService;
+import ua.com.manometer.service.CustomerService;
+import ua.com.manometer.service.SupplierService;
+import ua.com.manometer.service.UserService;
 import ua.com.manometer.service.address.CityService;
 import ua.com.manometer.service.invoice.BookingService;
 import ua.com.manometer.service.invoice.InvoiceItemService;
@@ -37,7 +37,6 @@ import ua.com.manometer.util.amount.JAmountRU;
 import ua.com.manometer.util.amount.JAmountUA;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
@@ -91,7 +90,7 @@ public class InvoiceController {
 
         map.put("userId", securedUser.getUserId());
 //        if (filter != null) {
-            map.put("listInvoices", invoiceService.listFilteredInvoice(filter));
+        map.put("listInvoices", invoiceService.listFilteredInvoice(filter));
 //        } else {
 //            map.put("listInvoices", invoiceService.listInvoice());
 //
@@ -786,6 +785,14 @@ public class InvoiceController {
         map.put("mes", mes);
 
         return map;
+    }
+
+    @RequestMapping(value = "/export_invoice_list", method = RequestMethod.GET)
+    public String exportReport(ModelMap model) {
+        SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        InvoiceFilter filter = securedUser.getInvoiceFilter();
+        model.put("listInvoices", invoiceService.listFilteredInvoice(filter));
+        return "invoiceListReport";
     }
 
 

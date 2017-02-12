@@ -230,6 +230,12 @@ function openFilterWindow() {
 
 }
 
+function printInvoiceList() {
+    location.replace("./printInvoiceList");
+}
+
+
+
 function removeErrorClass() {
     $('#number').removeClass("error");
     $('#numberModifier').removeClass("error");
