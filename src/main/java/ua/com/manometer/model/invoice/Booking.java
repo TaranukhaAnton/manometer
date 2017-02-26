@@ -18,8 +18,8 @@ public class Booking {
     public static final String[] curStateAlias = {"черн", "про", "склад", "ч.отгр", "отгр", "исп", "приос", "анн"};
     @Id
     @GeneratedValue()
-
     private Integer id;
+
     @OneToOne(mappedBy = "booking")
     private Invoice invoice;
 

@@ -61,6 +61,8 @@
 
 <DIV ID="content">
     <a href="javascript:void(openFilterWindow())">Фильтр</a><br>
+    <a href="javascript:void(printBookingList())">Печать</a><br>
+
     <display:table name="listBookings" requestURI="./" excludedParams="method"
                    requestURIcontext="false" pagesize="20" sort="list" keepStatus="true"
                    class="simple" id="booking">

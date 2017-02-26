@@ -229,5 +229,16 @@ public class BookingController {
         return "bookingReport";
     }
 
+    @RequestMapping(value = "/export_list", method = RequestMethod.GET)
+    public String exportReport(ModelMap model) {
+        SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        BookingFilter filter = securedUser.getBookingFilter();
+        List<Booking> bookings = bookingService.listFilteredBooking(filter);
+        JRDataSource dataSource = new JRBeanCollectionDataSource(bookings);
+        model.addAttribute("dataSource", dataSource);
+        model.addAttribute("format", "xls");
+        return "bookingListReport";
+    }
+
 
 }

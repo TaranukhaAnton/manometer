@@ -212,26 +212,15 @@ $(function () {
 
 });
 function openFilterWindow() {
-    //var cookie = $.cookie("invoice_filter");
-    //if (cookie) {
-    //    var data = jQuery.parseJSON(cookie);
-    //    if (typeof data != 'undefined') {
-    //        $('#filterForm').deserialize(data);
-    //    }
-    //}
-
-
     $.get("../filters/invoice/get_filter", {},
         function (data) {
             $('#filterForm').deserialize(data);
             $('#filter-form').dialog('open');
         });
-
-
 }
 
 function printInvoiceList() {
-    location.replace("./export_invoice_list");
+    location.replace("./export_list");
 }
 
 

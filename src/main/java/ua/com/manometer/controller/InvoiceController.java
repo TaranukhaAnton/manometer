@@ -787,14 +787,14 @@ public class InvoiceController {
         return map;
     }
 
-    @RequestMapping(value = "/export_invoice_list", method = RequestMethod.GET)
+    @RequestMapping(value = "/export_list", method = RequestMethod.GET)
     public String exportReport(ModelMap model) {
         SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         InvoiceFilter filter = securedUser.getInvoiceFilter();
         List<Invoice> value = invoiceService.listFilteredInvoice(filter);
         JRDataSource dataSource = new JRBeanCollectionDataSource(value);
         model.addAttribute("dataSource", dataSource);
-        model.addAttribute("format", "pdf");
+        model.addAttribute("format", "xls");
         return "invoiceListReport";
     }
 

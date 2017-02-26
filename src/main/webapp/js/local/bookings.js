@@ -91,17 +91,13 @@ function openFilterWindow() {
             $('#bokingFilterForm').deserialize(data);
             $('#booking-filter-form').dialog('open');
         });
-
-
-    //var cookie = $.cookie("booking_filter");
-    //if(cookie){
-    //    var data = jQuery.parseJSON(cookie);
-    //    if (typeof data != 'undefined') {
-    //        $('#bokingFilterForm').deserialize(data);
-    //    }
-    //}
-    //$("#booking-filter-form").dialog('open');
 }
+
+function printBookingList() {
+    location.replace("./export_list");
+}
+
+
 /*
 $.fn.serializeObject = function (arrayValues) {
     var o = {};
