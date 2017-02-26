@@ -6,6 +6,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ua.com.manometer.model.CustomerFilter;
 import ua.com.manometer.model.User;
 
 import java.io.File;
@@ -26,10 +27,11 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> listUser() {
         List<User> list = sessionFactory.getCurrentSession().createQuery("from User").list();
-        for (User user : list) {
-            Hibernate.initialize(user.getBookingFilter());
-            Hibernate.initialize(user.getInvoiceFilter());
-        }
+//        for (User user : list) {
+//            Hibernate.initialize(user.getBookingFilter());
+//            Hibernate.initialize(user.getInvoiceFilter());
+//            Hibernate.initialize(user.getCustomerFilter());
+//        }
         return list;
     }
 
@@ -57,6 +59,7 @@ public class UserDAOImpl implements UserDAO {
         User user = (User) sessionFactory.getCurrentSession().get(User.class, id);
         Hibernate.initialize(user.getBookingFilter());
         Hibernate.initialize(user.getInvoiceFilter());
+        Hibernate.initialize(user.getCustomerFilter());
         return user;
     }
 
@@ -67,6 +70,7 @@ public class UserDAOImpl implements UserDAO {
                 add(Restrictions.eq("login", login)).uniqueResult();
         Hibernate.initialize(user.getBookingFilter());
         Hibernate.initialize(user.getInvoiceFilter());
+        Hibernate.initialize(user.getCustomerFilter());
         return user;
     }
 

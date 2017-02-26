@@ -1,11 +1,13 @@
 package ua.com.manometer.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.com.manometer.model.Customer;
+import ua.com.manometer.model.CustomerFilter;
 
 import java.util.List;
 
@@ -22,8 +24,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Customer> listCustomer() {
-        return sessionFactory.getCurrentSession().createQuery("from Customer").list();
+    public List<Customer> listCustomer(CustomerFilter filter) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Customer.class);
+        if (filter!=null){
+            criteria.add(Restrictions.in("branch", filter.getBranches()));
+        }
+        return  criteria.list();
     }
 
     @Override

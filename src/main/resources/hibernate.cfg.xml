@@ -35,6 +35,7 @@
         <mapping class="ua.com.manometer.model.price.OptionsPrice" />
         <mapping class="ua.com.manometer.model.price.PriceFirstPart" />
         <mapping class="ua.com.manometer.model.price.ProductionPrice" />
+        <mapping class="ua.com.manometer.model.CustomerFilter" />
 
 
 

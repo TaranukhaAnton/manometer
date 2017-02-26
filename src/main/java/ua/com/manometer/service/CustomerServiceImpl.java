@@ -5,9 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.manometer.dao.CustomerDAO;
-import ua.com.manometer.dao.OrgFormDAO;
 import ua.com.manometer.model.Customer;
-import ua.com.manometer.model.OrgForm;
+import ua.com.manometer.model.CustomerFilter;
 
 import java.util.List;
 
@@ -40,8 +39,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public List<Customer> listCustomer() {
-        return customerDAO.listCustomer();
+    public List<Customer> listCustomer(CustomerFilter filter) {
+        return customerDAO.listCustomer(filter);
     }
 
     @Override

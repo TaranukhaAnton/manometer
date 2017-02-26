@@ -2,13 +2,11 @@ package ua.com.manometer.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-//import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 import ua.com.manometer.model.invoice.filter.BookingFilter;
 import ua.com.manometer.model.invoice.filter.InvoiceFilter;
+
 
 import javax.persistence.*;
 import java.util.Date;
@@ -43,15 +41,17 @@ public class User {
     private String pass;// пароль
 
 
-    @OneToOne(optional = false,fetch = FetchType.LAZY)
-//    @Fetch(FetchMode.JOIN)
+    @OneToOne(optional = true,fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private InvoiceFilter invoiceFilter;
 
-    @OneToOne(optional = false,fetch = FetchType.LAZY)
-//    @Fetch(FetchMode.JOIN)
+    @OneToOne(optional = true,fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private BookingFilter bookingFilter;
+
+    @OneToOne(optional = true,fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private CustomerFilter customerFilter;
 
 
     private String fioUkr;
@@ -197,6 +197,14 @@ public class User {
 
     public void setBookingFilter(BookingFilter bookingFilter) {
         this.bookingFilter = bookingFilter;
+    }
+
+    public CustomerFilter getCustomerFilter() {
+        return customerFilter;
+    }
+
+    public void setCustomerFilter(CustomerFilter customerFilter) {
+        this.customerFilter = customerFilter;
     }
 
     @Transient

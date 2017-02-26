@@ -64,7 +64,7 @@ $(function () {
             },
             'Очистить': function () {
                 // alert($('#filterForm').serialize());
-                $.removeCookie("booking_filter");
+                // $.removeCookie("booking_filter");
 
                 $(this).dialog('close');
             },

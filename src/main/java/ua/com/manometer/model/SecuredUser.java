@@ -24,6 +24,7 @@ public class SecuredUser implements UserDetails {
     private final boolean enabled;
     private InvoiceFilter invoiceFilter;
     private BookingFilter bookingFilter;
+    private CustomerFilter customerFilter;
     private Integer userId;
     private Integer powerLevel;
 
@@ -138,6 +139,14 @@ public class SecuredUser implements UserDetails {
         }
     }
 
+
+    public CustomerFilter getCustomerFilter() {
+        return customerFilter;
+    }
+
+    public void setCustomerFilter(CustomerFilter customerFilter) {
+        this.customerFilter = customerFilter;
+    }
 
     public InvoiceFilter getInvoiceFilter() {
         return invoiceFilter;

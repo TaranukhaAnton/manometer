@@ -15,10 +15,7 @@ import ua.com.manometer.model.User;
 import ua.com.manometer.model.invoice.filter.BookingFilter;
 import ua.com.manometer.model.invoice.filter.InvoiceFilter;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
@@ -54,18 +51,16 @@ public class CustomUserDetailsService implements UserDetailsService {
                     getAuthorities(powersLevel));
             securedUser.setUserId(user.getId());
             InvoiceFilter invoiceFilter = user.getInvoiceFilter();
-            BookingFilter bookingFilter = user.getBookingFilter();
-
 
             if (User.LEVEL_MANAGER.equals(powersLevel) || User.LEVEL_USER.equals(powersLevel)) {
-                LinkedList<Integer> userFilter = new LinkedList<Integer>();
-                userFilter.add(user.getId());
-                invoiceFilter.setUsers(userFilter);
+                invoiceFilter.setUsers(Arrays.asList(user.getId()));
             }
 //
 //
             securedUser.setInvoiceFilter(invoiceFilter);
-            securedUser.setBookingFilter(bookingFilter);
+            securedUser.setBookingFilter(user.getBookingFilter());
+            securedUser.setCustomerFilter(user.getCustomerFilter());
+
             securedUser.setPowerLevel(powersLevel);
             return securedUser;
 

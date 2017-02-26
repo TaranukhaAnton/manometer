@@ -1,20 +1,19 @@
 package ua.com.manometer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import ua.com.manometer.model.Customer;
-import ua.com.manometer.model.OrgForm;
-import ua.com.manometer.model.User;
+import org.springframework.web.bind.annotation.*;
+import ua.com.manometer.model.*;
 import ua.com.manometer.model.address.Area;
 import ua.com.manometer.model.address.City;
 import ua.com.manometer.model.address.Country;
 import ua.com.manometer.model.address.Region;
+import ua.com.manometer.model.invoice.filter.BookingFilter;
+import ua.com.manometer.model.invoice.filter.InvoiceFilter;
 import ua.com.manometer.service.CustomerService;
+import ua.com.manometer.service.FilterService;
 import ua.com.manometer.service.OrgFormService;
 import ua.com.manometer.service.UserService;
 import ua.com.manometer.service.address.AreaService;
@@ -51,10 +50,17 @@ public class  CustomerController {
     private CityService cityService;
     @Autowired
     private AreaService areaService;
+    @Autowired
+    private FilterService filterService;
 
     @RequestMapping("/")
     public String populateCustomers(Map<String, Object> map) {
-        map.put("listCustomer", customerService.listCustomer());
+
+        SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomerFilter filter = securedUser.getCustomerFilter();
+
+
+        map.put("listCustomer", customerService.listCustomer(filter));
         return "customers";
     }
 
@@ -192,6 +198,28 @@ public class  CustomerController {
     OrgForm addOrgForm(OrgForm orgForm) {
         orgFormService.addOrgForm(orgForm);
         return orgForm;
+    }
+
+
+    @RequestMapping(value = "/filter", method = RequestMethod.POST)
+    public String saveFilter(@ModelAttribute CustomerFilter customerFilter) {
+        SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Integer userId = securedUser.getUserId();
+        customerFilter.setId(userId);
+        filterService.saveFilter(customerFilter);
+        securedUser.setCustomerFilter(customerFilter);
+        return "redirect:/customers/";
+    }
+
+    @RequestMapping(value = "/filter" , method = RequestMethod.GET)
+    @ResponseBody
+    public CustomerFilter getFilter() {
+        SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (securedUser != null) {
+            CustomerFilter filter = securedUser.getCustomerFilter();
+            return filter;
+        }
+        return null;
     }
 
 
