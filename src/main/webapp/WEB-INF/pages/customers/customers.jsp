@@ -9,7 +9,7 @@
 
 <a href="edit">Добавить предприятие</a><br>
 <a href="javascript:void(openFilterWindow())">Фильтр</a><br>
-<a href="javascript:void(printBookingList())">Печать</a><br>
+<a href="javascript:void(getReport())">Печать</a><br>
 <br>
 <br>
 <display:table name="listCustomer" id="row"

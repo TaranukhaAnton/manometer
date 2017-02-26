@@ -1,5 +1,7 @@
 package ua.com.manometer.controller;
 
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import ua.com.manometer.model.address.Area;
 import ua.com.manometer.model.address.City;
 import ua.com.manometer.model.address.Country;
 import ua.com.manometer.model.address.Region;
+import ua.com.manometer.model.invoice.Invoice;
 import ua.com.manometer.model.invoice.filter.BookingFilter;
 import ua.com.manometer.model.invoice.filter.InvoiceFilter;
 import ua.com.manometer.service.CustomerService;
@@ -220,6 +223,18 @@ public class  CustomerController {
             return filter;
         }
         return null;
+    }
+
+
+    @RequestMapping(value = "/export_list", method = RequestMethod.GET)
+    public String exportReport(ModelMap model) {
+        SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomerFilter filter = securedUser.getCustomerFilter();
+        List<Customer> value = customerService.listCustomer(filter);
+        JRDataSource dataSource = new JRBeanCollectionDataSource(value);
+        model.addAttribute("dataSource", dataSource);
+        model.addAttribute("format", "xls");
+        return "customerListReport";
     }
 
 

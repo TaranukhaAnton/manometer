@@ -72,29 +72,10 @@ public class InvoiceController {
 
     @RequestMapping("/")
     public String populateInvoices(@CookieValue(required = false) String invoice_filter, Map<String, Object> map) {
-//        InvoiceFilter filter = null;
-//        if (StringUtils.isNotBlank(invoice_filter)) {
-//            try {
-//                ObjectMapper objectMapper = new ObjectMapper();
-//                objectMapper.setDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
-//                filter = objectMapper.readValue(invoice_filter, InvoiceFilter.class);
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//                LOGGER.error(e);
-//            }
-//
-//        }
         SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         InvoiceFilter filter = securedUser.getInvoiceFilter();
-
         map.put("userId", securedUser.getUserId());
-//        if (filter != null) {
         map.put("listInvoices", invoiceService.listFilteredInvoice(filter));
-//        } else {
-//            map.put("listInvoices", invoiceService.listInvoice());
-//
-//        }
         map.put("currencies", currencyService.listCurrency());
         map.put("userList", userService.listUser());
         map.put("userLevel", securedUser.getPowerLevel());

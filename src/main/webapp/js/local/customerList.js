@@ -35,3 +35,7 @@ function openFilterWindow() {
             $('#customers-filter-form').dialog('open');
         });
 };
+
+function getReport() {
+    location.replace("./export_list");
+};
