@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface CustomerService {
 
-	public void addCustomer(Customer customer);
+    void addCustomer(Customer customer);
 
-	public List<Customer> listCustomer(CustomerFilter filter);
+    List<Customer> listCustomer(CustomerFilter filter);
 
-	public void removeCustomer(Integer id);
+    void removeCustomer(Integer id);
 
-    public  Customer getCustomer(Integer id);
+    Customer getCustomer(Integer id);
 
-    public List<String> findByShortNameExample(String customerTemplate);
+    List<String> findByShortNameExample(String customerTemplate);
 
-    public  Customer getCustomerByShortName(String shortName);
+    Customer getCustomerByShortName(String shortName);
 
-    public Boolean isCustomerPresent(String customer);
+    Boolean isCustomerPresent(String customer);
 }

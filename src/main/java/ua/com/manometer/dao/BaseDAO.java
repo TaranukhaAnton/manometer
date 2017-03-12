@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public interface BaseDAO {
 
-    public void saveOrUpdate(Object object);
+     void saveOrUpdate(Object object);
 
-    public void removeById(Serializable id, Class aClass);
+     void removeById(Serializable id, Class aClass);
 
-    public Object getById(Serializable id, Class aClass);
+     Object getById(Serializable id, Class aClass);
 
 }

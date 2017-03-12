@@ -199,7 +199,11 @@ function parseResults(data) {
     }
 
     if (document.mainForm.vm != undefined) {
-        document.mainForm.vm.disabled = data.vm != "true";
+        if (data.vm) {
+            $("#vm").removeAttr("disabled");
+        } else {
+            $("#vm").attr("disabled", true);
+        }
     }
 
 
