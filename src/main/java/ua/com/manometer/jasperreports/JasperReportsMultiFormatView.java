@@ -16,23 +16,16 @@
 
 package ua.com.manometer.jasperreports;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import javax.servlet.http.HttpServletResponse;
-
-import com.sun.jndi.toolkit.url.Uri;
 import net.sf.jasperreports.engine.JasperPrint;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Jasper Reports view class that allows for the actual rendering format to be
